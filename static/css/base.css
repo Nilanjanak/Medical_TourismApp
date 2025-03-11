@@ -1,0 +1,1039 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+header {
+    background-color: #333;
+    padding: 15px 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Logo styling */
+.logo img {
+    width: 50px;
+    height: auto;
+}
+
+/* Dropdown menu styling */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    position: relative;
+    padding-left: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #e91e63;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #333;
+    color: white;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+    padding: 0;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown-content a:hover {
+    background-color: #e91e63;
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Search bar styling */
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+}
+
+.search-bar button {
+    background-color: #e91e63;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.search-bar button:hover {
+    background-color: #d81b60;
+}
+
+/* Login button styling */
+.login-btn a {
+    background-color: #e91e63;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-left: 20px;
+}
+
+.login-btn a:hover {
+    background-color: #d81b60;
+}
+
+/* Responsive adjustments for header */
+@media (max-width: 900px) {
+    .header-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .search-bar {
+        margin-top: 10px;
+    }
+
+    .login-btn {
+        margin-top: 10px;
+    }
+}
+
+main {
+    padding: 20px;
+}
+
+.bouquet-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.bouquet-div {
+    padding-left: 250px;
+}
+.bouquet-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Keep text color same */
+    transition: transform 0.2s ease; /* Add a hover effect */
+}
+
+.bouquet-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.bouquet-card h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #444;
+}
+
+.bouquet-card p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.bouquet-card .price {
+    font-size: 1.1rem;
+    color: #e91e63;
+    font-weight: bold;
+}
+
+.bouquet-card:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Add-to-Cart button */
+.add-to-cart-btn {
+    background-color: #e91e63;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #d81b60;
+}
+
+.add-to-cart-btn:active {
+    transform: scale(0.95); /* Shrink button slightly on click */
+    background-color: #c2185b;
+}
+
+/* Success message after adding to cart */
+.add-to-cart-success {
+    opacity: 0;
+    visibility: hidden;
+    font-size: 0.9rem;
+    color: green;
+    margin-top: 10px;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show success message smoothly */
+.add-to-cart-success.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Style for the cart button */
+.cart-btn {
+    background-color: transparent;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 20px;
+}
+
+.cart-btn img {
+    width: 24px; /* Set the size of the cart icon */
+    height: 24px;
+}
+
+#cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #e91e63;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 2px 6px;
+    min-width: 18px;
+    text-align: center;
+}
+
+
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 97.9%;
+}
+
+/* Existing styles in styles.css */
+
+/* Your other styles for the header, body, products, etc. */
+
+/* Footer Section Styling (Add this at the bottom of your existing styles.css) */
+.site-footer {
+    background-color: #333;
+    color: white;
+    padding: 40px 20px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-links,
+.footer-terms,
+.footer-contact {
+    flex: 1;
+    min-width: 250px;
+    margin: 10px;
+}
+
+.footer-links h3,
+.footer-terms h3,
+.footer-contact h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #e91e63;
+}
+
+.footer-links ul,
+.footer-terms ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-links ul li,
+.footer-terms ul li {
+    margin-bottom: 10px;
+}
+
+.footer-links ul li a,
+.footer-terms ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover,
+.footer-terms ul li a:hover {
+    color: #e91e63;
+}
+
+.footer-contact p {
+    margin: 5px 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}
+
+.footer-bottom p {
+    font-size: 1rem;
+    color: #bbb;
+}
+
+/* Optional: Additional footer styles or media queries */
+
+/* Slider container */
+.slider {
+    position: relative;
+    max-width: 100%;
+    max-height: 300px;
+    max-height: 300px;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Slides */
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Individual slide */
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+}
+
+/* Slide images */
+.slide img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Slide captions */
+.slide h2 {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+}
+
+/* Navigation arrows */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 10px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.next {
+    right: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+/* On hover, slightly darken the arrows */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+
+/* Responsive styling */
+@media (max-width: 1200px) {
+    .bouquet-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 cards per row for medium screens */
+    }
+}
+
+@media (max-width: 900px) {
+    .bouquet-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 cards per row for tablets */
+    }
+}
+
+@media (max-width: 600px) {
+    .bouquet-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row for small devices */
+    }
+}
+
+@media (max-width: 400px) {
+    .bouquet-grid {
+        grid-template-columns: 1fr; /* 1 card per row for very small devices */
+    }
+}
+
+/* Login Styling */
+.login-register-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 50px;
+}
+.login-section, .register-section {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 1rem;
+    color: #333;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d81b60;
+}
+
+/* p {
+    text-align: center;
+} */
+
+p a {
+    color: #e91e63;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-register-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+}
+
+/* Product page */
+.product-page-display img {
+    width: 330px;
+}
+
+.product-page-display h2 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #444;
+}
+
+.product-page-display p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.product-page-display a {
+    font-size: 1rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+
+/* About Us page styles */
+.about-section {
+    background-color: #f4f4f4;
+    padding: 50px;
+    text-align: center;
+}
+
+.about-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.about-section p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.about-content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.content-section {
+    margin-bottom: 40px;
+}
+
+.content-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.content-section p, .content-section ul {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.content-section ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.team {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.team-member {
+    flex: 1;
+    text-align: center;
+}
+
+.team-member img {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.team-member h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.team-member p {
+    font-size: 1rem;
+    color: #777;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Contact Us page styles */
+.contact-section {
+    background-color: #f4f4f4;
+    padding: 50px;
+    text-align: center;
+}
+
+.contact-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.contact-section p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.contact-content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.content-section {
+    margin-bottom: 40px;
+}
+
+.content-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#contact-form label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+#contact-form input, #contact-form textarea {
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#contact-form button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#contact-form button:hover {
+    background-color: #d81b60;
+}
+
+.contact-details {
+    font-size: 1rem;
+}
+
+.contact-details a {
+    color: #e91e63;
+    text-decoration: none;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Combos Page Styling */
+.combos-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+}
+
+.combos-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.combos-section p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+/* Grid layout for combo items */
+.combo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.combo-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.combo-card img {
+    width: 100%;
+    border-radius: 10px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.combo-card h3 {
+    font-size: 1.5rem;
+    margin: 15px 0;
+}
+
+.combo-card p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.combo-card .price {
+    font-size: 1.2rem;
+    color: #e91e63;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.combo-card .add-to-cart {
+    padding: 10px 20px;
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.combo-card .add-to-cart:hover {
+    background-color: #d81b60;
+}
+
+/* Hover effect on combo card */
+.combo-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer styling */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Policy Pages Styling */
+.policy-section {
+    padding: 60px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+}
+
+.policy-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.policy-section h2 {
+    font-size: 1.75rem;
+    margin-top: 30px;
+    color: #e91e63;
+}
+
+.policy-section p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+
+/* Coming Soon Section Styling */
+.coming-soon-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background-color: #f3f3f3;
+    text-align: center;
+    padding: 40px;
+}
+
+.coming-soon-section .content {
+    max-width: 700px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.coming-soon-section h1 {
+    font-size: 2.5rem;
+    color: #e91e63;
+    margin-bottom: 20px;
+}
+
+.coming-soon-section p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.coming-soon-section .launch-date {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.coming-soon-section .back-home {
+    text-decoration: none;
+    background-color: #e91e63;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+.coming-soon-section .back-home:hover {
+    background-color: #d81b60;
+}
+
+/* General Cart Page Layout */
+.cart-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Title for the Cart Page */
+.cart-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Styling for individual cart items */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+    padding: 0 20px;
+}
+
+.cart-item-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-item-price {
+    font-size: 1rem;
+    color: #888;
+}
+
+.cart-item-quantity input {
+    width: 50px;
+    padding: 5px;
+    font-size: 1rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Total price of each item */
+.cart-item-total-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #e91e63;
+}
+
+/* Cart total and checkout section */
+.cart-total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.cart-total h2 {
+    font-size: 1.5rem;
+    margin-right: 20px;
+    color: #333;
+}
+
+/* Checkout button */
+#checkout-btn {
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#checkout-btn:hover {
+    background-color: #d81b60;
+}
+
+/* Empty cart message */
+.cart-empty {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 30px;
+}
+
+.get_in_touch {
+    text-align: center;
+}
