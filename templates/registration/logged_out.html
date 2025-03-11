@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+<style>
+    /* Logged Out Page Styling */
+.logged-out-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f9fafb;  /* Light background color */
+    text-align: center;
+    padding: 20px;
+}
+
+.logged-out-container h1 {
+    font-size: 2.5rem;
+    color: #e91e63;  /* Pinkish color for a clean, modern feel */
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.logged-out-container p {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.link {
+    font-size: 1.1rem;
+    color: #007bff;  /* Blue color for the link */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: #0056b3;  /* Darker blue on hover */
+}
+
+</style>
+
+<div class="logged-out-container">
+    <h1>Logged Out</h1>
+    <p>
+        You have been successfully logged out.
+        You can <a href="{% url 'login' %}" class="link">log-in again</a>.
+    </p>
+</div>
+{% endblock %}

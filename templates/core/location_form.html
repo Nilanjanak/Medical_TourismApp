@@ -1,0 +1,29 @@
+<!-- location_form.html -->
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    // Listen for changes on the country dropdown
+    document.querySelector('select[name="country"]').addEventListener('change', function() {
+        var country_id = this.value;
+
+        // Make an AJAX request to get the states for the selected country
+        fetch('/get_states/?country_id=' + country_id)
+            .then(response => response.json())
+            .then(data => {
+                var stateDropdown = document.querySelector('select[name="state"]');
+                stateDropdown.innerHTML = '<option value="">Choose a state</option>';  // Reset state dropdown
+
+                // Populate the state dropdown with the fetched states
+                data.forEach(function(state) {
+                    var option = document.createElement('option');
+                    option.value = state.id;
+                    option.text = state.name;
+                    stateDropdown.appendChild(option);
+                });
+            });
+    });
+</script>

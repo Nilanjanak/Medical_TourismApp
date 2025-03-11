@@ -1,0 +1,457 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- {% block title %}
+    {% if category %}
+        {{ category.name }}
+    {% else %}
+        Products
+    {% endif %}
+{% endblock %} -->
+
+{% block content %}
+
+<style>
+    /* Overall layout */
+#main {
+    width: 98.5%;
+    padding: 30px 15px;
+    margin: 0;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.product-list h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
+/* Grid for products */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+    justify-items: center;
+    padding: 0 10px;
+}
+
+/* Product item card */
+.product-item {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-item:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+}
+
+.product-item a {
+    text-decoration: none;
+}
+
+/* Product image */
+.product-image {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.product-image:hover {
+    opacity: 0.9;
+}
+
+/* Product name */
+.product-name {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+    text-transform: capitalize;
+    display: block;
+}
+
+/* Product price */
+.product-price {
+    font-size: 1.2rem;
+    color: #e91e63;
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.product-category a{
+    text-decoration: none;
+    color: black;
+}
+
+.product-category a:hover{
+    text-decoration: none;
+    color: #123524;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .product-list h1 {
+        font-size: 2rem;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Hero Slider */
+.hero-slider {
+    position: relative;
+    width: 100%; /* Make it responsive */
+    max-width: 1200px; /* Optional: Set maximum width */
+    margin: 0 auto 20px; /* Center the slider and add spacing below */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    flex-shrink: 0; /* Prevent shrinking */
+    width: 100%; /* Full width of the container */
+}
+
+.slide img {
+    display: block; /* Remove extra spaces */
+    width: 100%; /* Adjust to container width */
+    height: auto; /* Maintain image aspect ratio */
+    max-height: 600px; /* Optional: Limit the height */
+}
+
+/* Slider Controls */
+.hero-slider {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.slide img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.slider-controls .prev,
+.slider-controls .next {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    user-select: none;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.slider-dots .dot {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.slider-dots .dot.active {
+    background-color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-slider {
+        border-radius: 5px;
+    }
+
+    .slider-controls .prev,
+    .slider-controls .next {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    .slide img {
+        max-height: 400px; /* Optional: Adjust for smaller screens */
+    }
+   
+}
+     /* Button styling for the price */
+     .price-button {
+        display: inline-block;
+        font-size: 1.3rem;
+        color: #fff;
+        background-color: #e91e63;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .price-button:hover {
+        background-color: #d01756;
+        transform: translateY(-2px);
+    }
+    .Paragraph {
+        font-family: 'Arial', sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #555;
+        text-align: justify;
+        margin: 20px auto;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-left: 3px solid #e91e63;
+        border-bottom: 2px solid #e91e63;
+        border-radius: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+    }
+
+    p:hover {
+        background-color: #fce4ec; /* Light pink background on hover */
+        transition: background-color 0.3s ease-in-out;
+    }
+</style>
+
+
+
+ <!-- navbar section start here -->
+    <!-- <div id="sidebar">
+
+        {% if user.is_authenticated %}
+        <p>Hi {{ user.username }}!</p>
+        <p><a href="{% url 'password_change' %}">Password Change</a></p>
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Log Out</button>
+        </form>
+        {% else %}
+        <p>You are not logged in</p>
+
+        <p><a href="{% url 'login' %}">Log In</a></p>
+        {% endif %}
+
+        <!-- Search -->
+        <!-- <form action="{% url 'shop:search_results' %}" method="get">
+            <input name="q" type="text" placeholder="Search...">
+          </form>
+
+        <ul>
+            <li {% if not category %}class="selected"{% endif %}>
+                <a href="{% url 'shop:product_list' %}">All</a>
+            </li>
+            {% for c in categories %}
+                <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                    <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div> --> 
+
+ <!-- navbar section Ends here -->
+ <!-- <div class="hero-slider">
+    <div class="slider-wrapper">
+        <div class="slide active">
+            <img src="{% static 'images/Slider1.png' %}" alt="Slide 1">
+        </div>
+        <div class="slide">
+            <img src="{% static 'images/Slider2.png' %}" alt="Slide 2">
+        </div>
+        <div class="slide">
+            <img src="{% static 'images/Slider3.png' %}" alt="Slide 3">
+        </div>
+    </div>
+    <div class="slider-controls">
+        <span class="prev" onclick="prevSlide()">&#10094;</span>
+        <span class="next" onclick="nextSlide()">&#10095;</span>
+    </div>
+</div> -->
+
+<div class="hero-slider">
+    <div class="slider-wrapper">
+        <div class="slide active">
+            <img src="{% static 'images/slider1.jpg' %}" alt="Slide 1">
+        </div>
+        <div class="slide">
+            <img src="{% static 'images/slider2.jpg' %}" alt="Slide 2">
+        </div>
+        <div class="slide">
+            <img src="{% static 'images/slider3.jpg' %}" alt="Slide 3">
+        </div>
+    </div>
+    <div class="slider-controls">
+        <span class="prev" onclick="prevSlide()">&#10094;</span>
+        <span class="next" onclick="nextSlide()">&#10095;</span>
+    </div>
+    <div class="slider-dots">
+        <span class="dot" onclick="goToSlide(0)"></span>
+        <span class="dot" onclick="goToSlide(1)"></span>
+        <span class="dot" onclick="goToSlide(2)"></span>
+    </div>
+</div>
+
+<!-- List section start -->
+
+<div id="main" class="product-list">
+    {% for category in categories %}
+        {% if category.products.count > 0 %}
+            <div class="category-section">
+                <h2 class="product-category"><a href="{% url 'shop:category_products' category.id %}">{{ category.name }}</a></h2>
+                <div class="product-grid">
+                    {% for product in category.products.all|slice:":5" %}
+                        <div class="product-item">
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="{{ product.name }}" class="product-image">
+                            </a>
+                            <div class="product-info">
+                                <a href="{{ product.get_absolute_url }}" class="product-name">{{ product.name }}</a> <br>
+                                <a href="{{ product.get_absolute_url }}" class="price-button">₹{{ product.price }}</a>
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+ <p class="Paragraph">
+    At <strong>FlowerBouquet.com</strong>, we’re passionate about delivering the world’s most stunning flowers, right to your doorstep—anywhere in the world! 🌸✨ Our mission is simple: to bring high-quality, affordable blooms that brighten your day and elevate your moments, big and small. Whether you’re here to explore our exquisite flower collections, get inspired by our expert tips and resources, or discover more about us, we’re thrilled to have you with us! 🌍💐
+
+Take a moment to explore, and don't hesitate to reach out—we’re here to help you create unforgettable experiences with every petal. 🌷 Let’s make your day a little brighter!
+ </p>
+    </div>
+</div>
+
+
+
+
+ <script>
+
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+// Function to show a specific slide
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.style.opacity = i === index ? '1' : '0';
+    });
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+    });
+    currentSlide = index;
+}
+
+// Show next slide
+function nextSlide() {
+    const nextIndex = (currentSlide + 1) % slides.length;
+    showSlide(nextIndex);
+}
+
+// Show previous slide
+function prevSlide() {
+    const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(prevIndex);
+}
+
+// Go to a specific slide
+function goToSlide(index) {
+    showSlide(index);
+}
+
+// Automatic sliding
+let slideInterval = setInterval(nextSlide, 5000);
+
+// Pause sliding on hover
+const slider = document.querySelector('.hero-slider');
+slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+slider.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 5000));
+
+// Initialize the slider
+showSlide(currentSlide);
+
+//     let currentSlide = 0;
+
+// function showSlide(index) {
+//     const slides = document.querySelectorAll('.slide');
+//     if (index >= slides.length) currentSlide = 0;
+//     if (index < 0) currentSlide = slides.length - 1;
+
+//     slides.forEach((slide, i) => {
+//         slide.classList.remove('active');
+//         if (i === currentSlide) slide.classList.add('active');
+//     });
+// }
+
+// function nextSlide() {
+//     currentSlide++;
+//     showSlide(currentSlide);
+// }
+
+// function prevSlide() {
+//     currentSlide--;
+//     showSlide(currentSlide);
+// }
+
+// // Auto-slide functionality
+// setInterval(() => {
+//     nextSlide();
+// }, 5000); // Change slide every 5 seconds
+
+// // Initialize first slide
+// showSlide(currentSlide);
+
+ </script>
+
+
+{% endblock %}

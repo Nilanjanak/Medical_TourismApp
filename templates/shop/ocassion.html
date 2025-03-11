@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+h1 {
+    font-size: 3rem;
+    color: #fff;
+    padding-top: 50px;
+}
+#main.ocassion-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;  /* Space between categories */
+}
+
+.ocassion-list a{
+    text-decoration: none;
+    color: #000;
+    font-size: 2rem;
+    margin: 0 0 100px 0;
+}
+
+/* Style for individual category item */
+.ocassion-item {
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 30px; /* This makes it circular */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center the text horizontally */
+    display: flex; /* Enables flexbox for vertical alignment */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: space-between; /* Space between image and text */
+    align-items: center; /* Centers the text and image horizontally */
+    width: 250px; /* Set a specific width */
+    height: 250px; /* Set a specific height for the circle */
+}
+
+/* Custom styles for the Wedding item */
+.ocassion-item.wedding {
+    display: flex;
+    flex-direction: column;  /* Stack the image and text vertically */
+    justify-content: space-between;
+}
+
+/* Style for category header */
+.ocassion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Style for the "View All" button */
+.view-all-btn {
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+/* Styling for images inside the categories */
+.ocassion-item img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;  /* Ensure the image fits within the circle */
+    border-radius: 20px;  /* Make the image circular */
+}
+
+/* Make sure the categories are responsive */
+@media (max-width: 1024px) {
+    .ocassion-item {
+        flex: 1 1 45%;  /* Adjust category width to 45% on medium screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .ocassion-item {
+        flex: 1 1 100%;  /* Full width on small screens */
+    }
+}
+</style>
+
+<h1>Shop By Ocassion</h1>
+<div id="main" class="ocassion-list">
+    <!-- Wedding category with image at the top and text at the bottom -->
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item wedding">
+            <img src="https://thumbs.dreamstime.com/b/decoration-wedding-flowers-part-interior-35528928.jpg" alt="Wedding Bouquet">
+            Wedding
+        </div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://cdn.shopify.com/s/files/1/0588/6099/4756/files/IMG_0173-1024x768.jpg" alt="Wedding Bouquet">
+            Reception</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/041/417/779/small_2x/ai-generated-happy-happy-birthday-with-pink-roses-over-rustic-wood-background-photo.jpeg" alt="Wedding Bouquet">
+            Birthday</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://www.mayflower.in/cdn/shop/articles/IMG_0639-scaled_1024x1024.jpg?v=1629454094" alt="Wedding Bouquet">
+            Festival</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7TL-8zhJfWGRDawNofmA6OsgHJb4glvJhRg&s" alt="Wedding Bouquet">
+            Christmas</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://assets.uaeflowers.com/uploads/product-pics/8382_79_8382.webp" alt="Wedding Bouquet">
+            Ospicious Day</div>
+    </a>
+</div>
+{% endblock %}

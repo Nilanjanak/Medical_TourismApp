@@ -1,0 +1,802 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Tourism App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    /* General Navbar Styling */
+    body {
+    background-image: url('https://media.istockphoto.com/id/108162808/photo/long-and-dark-hospital-hallway.jpg?s=612x612&w=0&k=20&c=1KwJaCm2u-Gp1HSZ9r_eq2GYoYKJi0O6QvDFrHyIpFY=');
+    background-repeat: no-repeat; /* Prevent background repetition */
+    background-size: cover; /* Ensure the image covers the entire area */
+    background-position: center; /* Center the image */
+    background-attachment: fixed; /* Make the background image fixed */
+    font-family: 'Arial', sans-serif;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 98%;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #6E8E59;
+    padding: 10px 30px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.currency {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.currency .arrow-down {
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropbtn {
+    background-color: #6E8E59;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #222;
+}
+
+.dropbtn:hover {
+    color: #0b538d;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    top: 35px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    display: inline;
+}
+
+.nav-menu a {
+    color: #333;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 8px 12px;
+}
+
+.nav-menu a:hover {
+    color: #0b538d;
+}
+
+/* Search Bar */
+.search-bar {
+    margin-right: 20px;
+}
+
+.search-bar input {
+    padding: 8px 12px;
+    font-size: 14px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-bar button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    background-color: #0b538d;
+    color: white;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+}
+
+/* User Section */
+.user-section {
+    display: flex;
+    align-items: center;
+}
+
+.user-section .login-btn {
+    color: #0b538d;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.user-section .login-btn:hover {
+    text-decoration: underline;
+}
+
+.user-section .user-info {
+    margin-right: 20px;
+}
+
+.user-section form button {
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.user-section form button:hover {
+    background-color: #0b538d;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-left,
+    .navbar-right {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 10px;
+        text-align: center;
+    }
+}
+
+/* Icons Section */
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icons i {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.profile-menu {
+    display: none;
+    position: absolute;
+    right: 19px;
+    top: 80px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    /* width: 150px; */
+    z-index: 999;
+}
+
+.profile-menu a {
+    display: block;
+    padding: 5px 0;
+    text-decoration: none;
+    color: #333;
+}
+
+.profile-menu a:hover,
+.profile-menu button:hover {
+    background-color: #f1f1f1;
+}
+
+.profile-menu p {
+    margin: 0 0 10px;
+    font-size: 14px;
+}
+
+.search-bar {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    /* margin-top: 25px; */
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
+    display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .icons {
+        margin-top: 10px;
+    }
+}
+
+
+/* Footer Styling */
+
+footer {
+    background-color: #ffffff;  /* White background */
+    padding: 30px 0;
+    text-align: center;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    border-radius: 20px 20px 0 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-left, .footer-center, .footer-right {
+    flex: 1;
+    padding: 10px;
+}
+
+.footer-left {
+    text-align: left;
+}
+
+.footer-left .logo img {
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.footer-left p {
+    font-size: 20px;
+    color: #777;
+}
+
+.footer-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-menu li {
+    margin: 5px 0;
+}
+
+.footer-menu a {
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+    padding: 8px;
+}
+
+.footer-menu a:hover {
+    color: #0b538d;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-media {
+    margin-bottom: 20px;
+}
+
+.social-icon {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.social-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); */
+}
+
+.social-icon:hover img {
+    transform: scale(1.1);
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.newsletter h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.newsletter form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.newsletter input {
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 250px;
+}
+
+.newsletter button {
+    padding: 10px 15px;
+    background-color: #0b538d;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.newsletter button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+        padding: 20px 0;
+    }
+
+    .footer-right {
+        margin-top: 20px;
+    }
+}
+
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-left, .footer-center, .footer-right {
+    flex: 1;
+    padding: 10px;
+}
+
+.footer-left {
+    text-align: left;
+}
+
+.footer-left .logo img {
+    height: 200px;
+    margin: 0 50px;
+}
+
+.footer-left .logo img:hover {
+    height: 200px;
+    margin: 0 50px;
+    transition: box-shadow 0.3s ease-in-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.footer-left p {
+    font-size: 20px;
+    color: #777;
+}
+
+.footer-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-menu li {
+    margin: 5px 0;
+}
+
+.footer-menu a {
+    text-decoration: none;
+    color: #333;
+    font-size: 20px;
+    padding: 8px;
+}
+
+.footer-menu a:hover {
+    color: #0b538d;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-media {
+    margin-bottom: 20px;
+}
+
+.social-icon {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+
+.social-icon:hover img {
+    transform: scale(1.1);
+}
+
+.newsletter h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.newsletter form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.newsletter input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 250px;
+}
+
+.newsletter button {
+    padding: 10px 15px;
+    background-color: #0b538d;
+    color: white;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.newsletter button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+        padding: 20px 0;
+    }
+
+    .footer-right {
+        margin-top: 20px;
+    }
+}
+
+/* Hide the dropdown menu by default */
+.dropdown-menu {
+    display: none;
+  }
+
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  /* Optional: Style the dropdown */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  .dropdown-menu li {
+    padding: 8px 12px;
+  }
+
+  .dropdown-menu li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+  }
+
+  .dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+  }
+
+</style>
+</head>
+<body>
+    
+
+    <header>
+        <nav class="navbar">
+            <div class="navbar-left">
+                <!-- Logo Section -->
+                <a href="{% url 'shop:product_list' %}" class="logo">
+                    <img src="{% static 'images/logo3.png' %}" alt="Logo">
+                </a>
+    
+                <!-- Currency and Dropdown for Categories -->
+                <!-- <div class="currency">
+                    <span>INR</span>
+                    <i class="arrow-down"></i>
+                </div> -->
+                <div class="dropdown">
+                    <button class="dropbtn">Categories</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'shop:product_list' %}">All</a>
+                        {% for c in categories %}
+                            <a href="{% url 'shop:category_products' c.id %}">{{ c.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Navigation Links -->
+            <ul class="nav-menu">
+                <li><a href="{% url 'shop:product_list' %}">Home</a></li>
+                <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScgTM9gJ6fMReMHYcxTLFyNvDa1_McyAwTVatpqb201kezGXw/viewform?usp=sharing">Contact Us</a></li>
+                <!-- <li><a href="{% url 'shop:product_list' %}">Home</a></li> -->
+                <!-- <li><a href="{% url 'shop:ocassion' %}">Shop by Occasions</a></li>
+                <li><a href="{% url 'shop:relation' %}">Shop by Relation</a></li>
+                <li><a href="{% url 'shop:coming_soon' %}">Floral Decor</a></li> -->
+                <!-- <li><a href="{% url 'shop:coming_soon' %}">Choose Your City</a></li> -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" role="button">
+                      Choose Your City <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{% url 'shop:coming_soon' %}">Kolkata</a></li>
+                      <li><a href="{% url 'shop:coming_soon' %}">Delhi</a></li>
+                      <li><a href="{% url 'shop:coming_soon' %}">Surat</a></li>
+                      <li><a href="{% url 'shop:coming_soon' %}">Mumbai</a></li>
+                      <li><a href="{% url 'shop:coming_soon' %}">Chennai</a></li>
+                      <li><a href="{% url 'shop:coming_soon' %}">Hyderabad</a></li>
+                      <!-- <li><a href="{% url 'shop:coming_soon' %}">Bangalore</a></li> -->
+                    </ul>
+                  </li>                                
+            </ul>
+    
+            <!-- Search, Cart, and Profile Section -->
+            <div class="navbar-right">
+                <div class="icons">
+                    <i class="search-icon" onclick="toggleSearch()">🔍</i>
+                    <!-- <a href="{% url 'cart:cart_detail' %}"><i class="cart-icon">🛒</i></a> -->
+                    <div class="profile">
+                        <i onclick="toggleProfileMenu()">👤</i>
+                        <div class="profile-menu">
+                            {% if user.is_authenticated %}
+                                <p>Hi {{ user.username }}!</p>
+
+                                <!-- #profile Details section starts here -->
+                                <div class="profile-details-container">
+                                    <!-- <h1>Your Profile</h1> -->
+                                    <div class="profile-details">
+                                        <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                                        <p><strong>Email:</strong> {{ user.email }}</p>
+                                        <p><strong>Username:</strong> {{ user.username }}</p>
+                                        <p><strong>Joined on:</strong> {{ user.date_joined|date:"F d, Y" }}</p>
+                                        
+                                        <div class="profile-actions">
+                                            <a href="{% url 'accounts:edit_profile' %}" class="btn-edit-profile">Edit Profile</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- #profile Details section ends here -->
+                                <form action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit">Log Out</button>
+                                </form>
+                            {% else %}
+                                <a href="{% url 'login' %}">Log In</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="search-bar" id="search-bar">
+                    <form action="{% url 'shop:search_results' %}" method="get">
+                        <input name="q" type="text" placeholder="Search...">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+        
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>   
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-container">
+                <div class="footer-left">
+                    <a href="{% url 'shop:product_list' %}" class="logo">
+                        <img src="{% static 'images/logo3.png' %}" alt="MedicalTouristApp Logo">
+                    </a>
+                </div>
+        
+                <div class="footer-center">
+                    <ul class="footer-menu">
+                        <li><a href="{% url 'shop:product_list' %}">Home</a></li>
+                        <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScgTM9gJ6fMReMHYcxTLFyNvDa1_McyAwTVatpqb201kezGXw/viewform?usp=sharing">Contact Us</a></li>
+                        <li><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfRYjllDg7pyOpuaa75c9gNiJhgPHE5UqsgRoCTwlHwTnJSFg/viewform?usp=sharing">Book an Appointment</a></li>
+                        <li><a href="{% url 'about:about' %}">About</a></li>
+                    </ul>
+                </div>
+        
+                <div class="footer-center">
+                    <ul class="footer-menu">
+                        <li><a href="{% url 'shop:privacy_policy' %}">Privacy Policy</a></li>
+                        <!-- <li><a href="{% url 'shop:refund_policy' %}">Refund Policy</a></li> -->
+                        <!-- <li><a href="{% url 'shop:shipping_policy' %}">Shipping Policy</a></li> -->
+                        <li><a href="{% url 'shop:terms_and_conditions' %}">Terms and Conditions</a></li>
+                    </ul>
+                </div>
+        
+                <div class="footer-right">
+                    <div class="social-media">
+                        <a href="https://www.facebook.com/" target="_blank" class="social-icon"><img src="{% static 'images/facebook.svg' %}" alt="Facebook"></a>
+                        <a href="https://www.instagram.com/" target="_blank" class="social-icon"><img src="{% static 'images/instagram.svg' %}" alt="Instagram"></a>
+                        <a href="https://www.x.com/" target="_blank" class="social-icon"><img src="{% static 'images/x.svg' %}" alt="Twitter"></a>
+                        <a href="https://www.linkedin.com/" target="_blank" class="social-icon"><img src="{% static 'images/linkedin.svg' %}" alt="LinkedIn"></a>
+                    </div>
+                    <!-- <div class="newsletter">
+                        <h4>Subscribe to our Newsletter</h4>
+                        <form action="#" method="post">
+                            <input type="email" placeholder="Enter your email" required>
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div> -->
+                </div>
+            </div>
+            <p>&copy; 2024 Medical. All Rights Reserved.</p>
+        </footer>
+
+
+
+
+<script>
+    // Toggle visibility for profile menu
+    function toggleProfileMenu() {
+        const profileMenu = document.querySelector('.profile-menu');
+        profileMenu.style.display = profileMenu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Toggle visibility for search bar
+    function toggleSearch() {
+        const searchBar = document.getElementById('search-bar');
+        searchBar.style.display = searchBar.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Close menus when clicking outside
+    document.addEventListener('click', function (event) {
+        const profileMenu = document.querySelector('.profile-menu');
+        const searchBar = document.getElementById('search-bar');
+
+        // Profile menu logic
+        if (!event.target.closest('.profile') && profileMenu && profileMenu.style.display === 'block') {
+            profileMenu.style.display = 'none';
+        }
+
+        // Search bar logic
+        if (!event.target.closest('.search-icon') && !event.target.closest('#search-bar') && searchBar && searchBar.style.display === 'block') {
+            searchBar.style.display = 'none';
+        }
+    });
+</script>
+        
+</body>
+</html>

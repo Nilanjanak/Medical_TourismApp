@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Privacy Policy - Flower Bouquets
+{% endblock %}
+
+{% block content %}
+
+<style>
+    /* General Page Styling */
+    .policy-detail {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+        backdrop-filter: blur(10px); /* Apply blur effect */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    .policy-detail-container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .policy-info {
+        flex: 1;
+    }
+    
+    .policy-info h1 {
+        font-size: 2rem;
+        color: #333;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+    .policy-info h2 {
+        font-size: 1.5rem;
+        color: #666;
+        margin-bottom: 15px;
+        font-weight: normal;
+    }
+    
+    .policy-info h2 a {
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .policy-info h2 a:hover {
+        color: #0056b3;
+    }
+    
+    .policy-info p {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .policy-info .custom-button {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 25px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+    .policy-info .custom-button:hover {
+        background-color: #0056b3;
+    }
+    
+    .policy-info a {
+        color: blue;
+        text-decoration: none;
+    }
+
+    .policy-info a:hover {
+        color: blue;
+        text-decoration: underline;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .policy-detail-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .policy-info h1 {
+            font-size: 1.8rem;
+        }
+        
+        .policy-info h2 {
+            font-size: 1.3rem;
+        }
+    }
+</style>
+
+<div class="policy-detail">
+    <div class="policy-detail-container">
+        <div class="policy-info">
+            <h1>Privacy Policy</h1>
+            <p>At <strong>MyCure360</strong>, we value your privacy and are committed to protecting your personal information. This privacy policy explains what data we collect and how we use it.</p>
+
+            <h2>Information Collection</h2>
+            <p>We collect personal information, including:</p>
+            <ul>
+                <li>Your name, email, phone number, and other contact details.</li>
+                <li>Medical history and treatment preferences (only as provided by you).</li>
+                <li>Payment details when booking medical treatments or accommodations.</li>
+                <li>Travel and accommodation preferences, if applicable.</li>
+            </ul>
+
+            <h2>How We Use Your Information</h2>
+            <p>We use your data to:</p>
+            <ul>
+                <li>Facilitate medical consultations and treatment bookings.</li>
+                <li>Assist in travel and accommodation arrangements.</li>
+                <li>Improve customer service and provide personalized recommendations.</li>
+                <li>Send important updates, appointment reminders, and promotional offers.</li>
+            </ul>
+
+            <h2>Third-Party Services</h2>
+            <p>We may share your personal information with:</p>
+            <ul>
+                <li>Hospitals, clinics, and doctors for treatment facilitation.</li>
+                <li>Travel and accommodation partners for booking assistance.</li>
+                <li>Legal authorities if required by law.</li>
+            </ul>
+            <p><strong>We do not sell your personal information to third parties.</strong></p>
+
+            <h2>Data Security</h2>
+            <p>We implement strict security measures to protect your personal data from unauthorized access, misuse, or disclosure.</p>
+
+            <h2>Your Rights</h2>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access, update, or delete your personal information.</li>
+                <li>Withdraw consent for data processing at any time.</li>
+            </ul>
+            <p>To exercise your rights, contact us at <a href="mailto:support@mycure360.com">support@mycure360.com</a>.</p>
+
+            <h2>Policy Updates</h2>
+            <p>We may update this privacy policy from time to time. Changes will be posted on this page, and we encourage you to review it periodically.</p>
+
+            
+            <!-- shop/privacy-policy.html -->
+            <h2>Contact Us</h2>
+            <p>If you have any questions regarding this Privacy Policy, please feel free to. contact us</p>
+                <a href="{% url 'shop:contact' %}" class="custom-button">Contact Us</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,827 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- {% block title %}
+    {% if category %}
+        {{ category.name }}
+    {% else %}
+        Products
+    {% endif %}
+{% endblock %} -->
+
+{% block content %}
+
+<style>
+    /* Overall layout */
+
+
+.category-section {
+    width: 96%;
+    padding: 30px 15px;
+    margin: 30px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.product-list h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
+/* Grid for products */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 20px;
+    justify-items: center;
+    padding: 0 10px;
+}
+
+/* Product item card */
+.product-item {
+    height: 620px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-item:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+}
+
+.product-item a {
+    text-decoration: none;
+}
+
+
+/* Product image */
+.product-image {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.product-image:hover {
+    opacity: 0.9;
+}
+
+/* Product name */
+.product-name {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+    text-transform: capitalize;
+    display: block;
+}
+
+/* Product price */
+.product-price {
+    font-size: 1.2rem;
+    color: #e91e63;
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.product-category{
+    text-decoration: none;
+    color: #123524;
+    font-size: 2.5rem;
+    margin-left: 0;
+}
+
+/* .product-category:hover{
+    text-decoration: none;
+    color: #123524;
+} */
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .product-list h1 {
+        font-size: 2rem;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Hero Slider */
+.hero-slider {
+    position: relative;
+    width: 100%; /* Ensure the slider takes full width */
+    margin: 20px auto 20px; /* Center the slider and add spacing below */
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Slider Wrapper (Flexbox) */
+.slider-wrapper {
+    display: flex; /* Arrange slides horizontally */
+    transition: transform 1s ease-in-out; /* Smooth transition for sliding effect */
+}
+
+/* Slide */
+.slide {
+    flex-shrink: 0; /* Prevent shrinking */
+    width: 100%; /* Full width of the container */
+    transition: opacity 1s ease-in-out; /* Smooth transition for opacity */
+    position: relative;
+}
+
+/* Image Styling */
+.slide img {
+    display: block; /* Remove extra spaces */
+    width: 100%; /* Adjust to container width */
+    height: auto; /* Maintain image aspect ratio */
+    max-height: 600px; /* Optional: Limit the height */
+}
+
+/* Slider Controls (Prev/Next Buttons) */
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.slider-controls .prev {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: white;
+    padding: 10px;
+    border-radius: 0 50% 50% 0;
+    user-select: none;
+    font-size: 30px; /* Make icons bigger */
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out; /* Transition for both font color and background color */
+}
+.slider-controls .next {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: white;
+    padding: 10px;
+    border-radius: 50% 0 0 50%;
+    user-select: none;
+    font-size: 30px; /* Make icons bigger */
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out; /* Transition for both font color and background color */
+}
+
+.slider-controls .prev:hover,
+.slider-controls .next:hover {
+    background-color: rgba(255, 255, 255, 0.8); /* Darken on hover */
+    color: black;
+}
+
+/* Slider Dots */
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+}
+
+.slider-dots .dot {
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+    margin: 0 5px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease-in-out;
+}
+
+.slider-dots .dot.active {
+    background-color: #aaa; /* Active dot color */
+    transform: scale(1.8);
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+    .hero-slider {
+        border-radius: 5px; /* Smaller radius for mobile */
+    }
+
+    .slider-controls .prev,
+    .slider-controls .next {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    .slide img {
+        max-height: 400px; /* Optional: Adjust for smaller screens */
+    }
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin: 50px 30px 0 30px; */
+    margin: 0 30px;
+    margin-left: 10px;
+}
+
+.ocassion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin: 50px 30px 0 30px; */
+    margin: 0 30px;
+    margin-left: 10px;
+}
+
+/* Style for the custom 'View All' button */
+.view-all-btn {
+    display: inline-block;
+    background-color: #e91e63; /* Custom background color */
+    color: #fff; /* White text */
+    padding: 15px 25px; /* Padding around the text */
+    border-radius: 10px; /* Rounded corners */
+    text-decoration: none; /* Remove underline from the link */
+    font-size: 1rem; /* Font size */
+    font-weight: bold; /* Bold text */
+    transition: all 0.6s ease-in-out; /* Transition effects for background and scaling */
+}
+
+/* Hover state for the button */
+.view-all-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+}
+
+/* Focus state (for accessibility) */
+.view-all-btn:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.2); /* Add a shadow on focus */
+}
+
+     /* Button styling for the price */
+     .price-button {
+        display: inline-block;
+        font-size: 1.3rem;
+        color: #fff;
+        background-color: #e91e63;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .price-button:hover {
+        background-color: #d01756;
+        transform: translateY(-2px);
+    }
+    .Paragraph {
+        font-family: 'Arial', sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #555;
+        text-align: justify;
+        margin: 20px auto;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-left: 3px solid #e91e63;
+        border-bottom: 2px solid #e91e63;
+        border-radius: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+    }
+
+    p:hover {
+        background-color: #fce4ec; /* Light pink background on hover */
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .front-description {
+    max-width: 100%;           /* Ensures the text will not exceed the parent width */
+    display: block;            /* Make it a block element so it takes up full width */
+    overflow: hidden;          /* Hide content that overflows */
+    white-space: normal;       /* Allow the text to wrap naturally */
+    text-overflow: ellipsis;   /* Add ellipsis when the text is too long */
+    word-wrap: break-word;     /* Break words if necessary to avoid overflow */
+    line-height: 1.4;          /* Adjust line height to improve readability */
+}
+
+#id_quantity{
+    padding: 10px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f8f9fa;  /* Light gray background */
+    border: 1px solid #ccc;  /* Light border */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100px;  /* Set a specific width */
+}
+
+/* Ensure the parent container takes up full width and aligns the items side by side */
+#main.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;  /* Space between categories */
+}
+
+#main.ocassion-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;  /* Space between categories */
+}
+
+/* Style for individual category item */
+.category-item {
+    flex: 1 1 22%;  /* This will give each category a width of about 22% */
+    box-sizing: border-box;  /* Ensure padding doesn't affect the layout */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ocassion-item {
+    /* flex: 1 1 10%; */
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 50%; /* This makes it circular */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center the text horizontally */
+    display: flex; /* Enables flexbox for vertical alignment */
+    justify-content: center; /* Centers the text horizontally */
+    align-items: center; /* Centers the text vertically */
+    width: 250px; /* Set a specific width */
+    height: 250px; /* Set a specific height for the circle */
+}
+
+/* Style for category header */
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.ocassion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Style for category title */
+.product-category {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style for the "View All" button */
+.view-all-btn {
+    font-size: 1rem;
+    /* color: #007bff; */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+#main.ocassion-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;  /* Space between categories */
+}
+
+.ocassion-list a{
+    text-decoration: none;
+    color: #000;
+    font-size: 2rem;
+    margin: 0 0 100px 0;
+}
+
+/* Style for individual category item */
+.ocassion-item {
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #D1F8EF;
+    border-radius: 30px; /* This makes it circular */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center the text horizontally */
+    display: flex; /* Enables flexbox for vertical alignment */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: space-between; /* Space between image and text */
+    align-items: center; /* Centers the text and image horizontally */
+    width: 250px; /* Set a specific width */
+    height: 250px; /* Set a specific height for the circle */
+}
+
+/* Custom styles for the Wedding item */
+.ocassion-item.wedding {
+    display: flex;
+    flex-direction: column;  /* Stack the image and text vertically */
+    justify-content: space-between;
+}
+
+/* Style for category header */
+.ocassion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Style for the "View All" button */
+.view-all-btn {
+    font-size: 1rem;
+    /* color: #007bff; */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+/* Styling for images inside the categories */
+.ocassion-item img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;  /* Ensure the image fits within the circle */
+    border-radius: 20px;  /* Make the image circular */
+}
+
+/* Make sure the categories are responsive */
+@media (max-width: 1024px) {
+    .ocassion-item {
+        flex: 1 1 45%;  /* Adjust category width to 45% on medium screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .ocassion-item {
+        flex: 1 1 100%;  /* Full width on small screens */
+    }
+}
+
+/* Make sure the categories are responsive */
+@media (max-width: 1024px) {
+    .category-item {
+        flex: 1 1 45%;  /* Adjust category width to 45% on medium screens */
+    }
+    .ocassion-item {
+        flex: 1 1 45%;  /* Adjust category width to 45% on medium screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .category-item {
+        flex: 1 1 100%;  /* Full width on small screens */
+    }
+    .ocassion-item {
+        flex: 1 1 100%;  /* Full width on small screens */
+    }
+}
+
+h1 {
+    font-size: 3rem;
+    color: #fff;
+    padding-top: 50px;
+}
+
+/* Custom button styling */
+.custom-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+    
+    /* Positioning */
+    position: fixed;
+    bottom: 20px;  /* Adjust vertical spacing */
+    right: 20px;   /* Adjust horizontal spacing */
+    z-index: 1000; /* Ensures it stays above other elements */
+}
+
+.custom-button:hover {
+    background-color: #45a049;
+}
+
+.dialog-box { 
+    height: 600px;
+    width: 350px;
+    display: none; 
+    position: fixed; 
+    bottom: 70px; 
+    right: 20px; 
+    padding: 20px; 
+    background: white; 
+    border: 1px solid #ccc; 
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+}
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+
+</style>
+
+<div class="hero-slider">
+    <div class="slider-wrapper">
+        <div class="slide active">
+            <img src="{% static 'images/slider1.jpg' %}" alt="Slide 4">
+        </div>
+        <div class="slide">
+            <img src="{% static 'images/slider2.jpg' %}" alt="Slide 5">
+        </div>
+        <div class="slide">
+            <img src="{% static 'images/slider8.png' %}" alt="Slide 6">
+        </div>
+        <div class="slide">
+            <img src="{% static 'images/slider7.jpg' %}" alt="Slide 6">
+        </div>
+    </div>
+    <div class="slider-controls">
+        <span class="prev" onclick="prevSlide()">&#10094;</span>
+        <span class="next" onclick="nextSlide()">&#10095;</span>
+    </div>
+    <div class="slider-dots">
+        <span class="dot" onclick="goToSlide(0)"></span>
+        <span class="dot" onclick="goToSlide(1)"></span>
+        <span class="dot" onclick="goToSlide(2)"></span>
+        <span class="dot" onclick="goToSlide(3)"></span>
+    </div>
+</div>
+
+<!-- <h1>Shop By Ocassion</h1>
+<div id="main" class="ocassion-list">
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item wedding">
+            <img src="https://thumbs.dreamstime.com/b/decoration-wedding-flowers-part-interior-35528928.jpg" alt="Wedding Bouquet">
+            Wedding
+        </div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://cdn.shopify.com/s/files/1/0588/6099/4756/files/IMG_0173-1024x768.jpg" alt="Wedding Bouquet">
+            Reception</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/041/417/779/small_2x/ai-generated-happy-happy-birthday-with-pink-roses-over-rustic-wood-background-photo.jpeg" alt="Wedding Bouquet">
+            Birthday</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://www.mayflower.in/cdn/shop/articles/IMG_0639-scaled_1024x1024.jpg?v=1629454094" alt="Wedding Bouquet">
+            Festival</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7TL-8zhJfWGRDawNofmA6OsgHJb4glvJhRg&s" alt="Wedding Bouquet">
+            Christmas</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://assets.uaeflowers.com/uploads/product-pics/8382_79_8382.webp" alt="Wedding Bouquet">
+            Ospicious Day</div>
+    </a>
+</div> -->
+
+<!-- List section start -->
+
+<div id="main" class="product-list">
+    {% for category in categories %}
+        {% if category.products.count > 0 %}
+            <div class="category-section">
+                <div class="category-header">
+                    <h2 class="product-category">{{ category.name }}</h2>
+                    <a href="{% url 'shop:category_products' category.id %}" class="view-all-btn">View All</a>
+                </div>                
+                <div class="product-grid">
+                    {% for product in category.products.all|slice:":4" %}
+                        <div class="product-item">
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="{{ product.name }}" class="product-image">
+                            </a>
+                            <div class="product-info">
+                                <a href="{{ product.get_absolute_url }}" class="product-name">{{ product.name }}</a> <br>
+                                <p class="front-description">
+                                    {% if product.description|length > 100 %}
+                                        {{ product.description|slice:":100" }}...
+                                    {% else %}
+                                        {{ product.description }}
+                                    {% endif %}
+                                </p>
+                                <a href="{% url 'shop:category_products' category.id %}" class="price-button">Read More...</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>            
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<!-- <div id="main" class="ocassion-list">
+    {% for category in categories %}
+        {% if category.products.count > 0 %}
+            <div class="ocassion-item">
+                <div class="ocassion-header">
+                    <a href="{% url 'shop:category_products' category.id %}" class="product-category">{{ category.name }}</a>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div> -->
+
+<!-- <h1>For every Relationship</h1>
+<div id="main" class="ocassion-list">
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item wedding">
+            <img src="https://www.fnp.com/assets/images/custom/misc/recepient/Recipient_Men_Desk_41224.jpg" alt="Wedding Bouquet">
+            Men</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://www.fnp.com/assets/images/custom/misc/recepient/Recipient_Women_Desk_41224.jpg" alt="Wedding Bouquet">
+            Women</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://www.fnp.com/assets/images/custom/misc/recepient/Recipient_Kids_Desk_41224.jpg" alt="Wedding Bouquet">
+            Kids</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://www.fnp.com/assets/images/custom/misc/recepient/Recipient_Freinds_Desk_41224.jpg" alt="Wedding Bouquet">
+            Friends</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://www.fnp.com/assets/images/custom/misc/recepient/wife2.jpg" alt="Wedding Bouquet">
+            Wife</div>
+    </a>
+    <a href="{% url 'shop:coming_soon' %}">
+        <div class="ocassion-item">
+            <img src="https://www.fnp.com/assets/images/custom/misc/recepient/Recipient_Husband_Desk_41224.jpg" alt="Wedding Bouquet">
+            Husband</div>
+    </a>
+</div> -->
+
+ <p class="Paragraph">
+    At <strong>Mediqor.com</strong>, we’re dedicated to connecting you with world-class medical care, no matter where you are! 🌍✨ Our mission is simple: to provide access to high-quality, affordable healthcare solutions, ensuring you receive the best treatment options tailored to your needs.
+
+    Whether you’re here to explore top hospitals, compare treatment costs, find expert doctors, or discover comfortable accommodations for your medical journey, we’re thrilled to guide you every step of the way! 🏥✈️
+    
+    Take a moment to explore, and don’t hesitate to reach out—we’re here to make your healthcare journey smooth, stress-free, and successful. 🤝 Let’s help you access the care you deserve!
+ </p>
+    </div>
+</div>
+
+<!-- Button redirects to the chatbot page using Django URL routing -->
+<!-- <a target="_blank" href="https://chat.deepseek.com/" class="custom-button">Chat with Deepseek</a> -->
+
+<!-- <button class="custom-button" id="openDialog">Open Dialog</button> -->
+    
+    <!-- <div class="overlay" id="overlay"></div>
+    
+    <div class="dialog-box" id="dialogBox">
+        <label for="mainDropdown">Choose a main option:</label>
+        <select id="mainDropdown" onchange="resetSelections()">
+            <option value="">Select an option</option>
+            <option value="1">Main Option 1</option>
+            <option value="2">Main Option 2</option>
+            <option value="3">Main Option 3</option>
+        </select>
+        <br><br>
+        <div id="nestedOptions"></div>
+        <button id="closeDialog">Close</button>
+        <button id="saveSelection">Save Selection</button>
+    </div> -->
+
+<script>
+
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const sliderWrapper = document.querySelector('.slider-wrapper');
+const dots = document.querySelectorAll('.dot');
+
+// Function to show a specific slide
+function showSlide(index) {
+    // Calculate the new position for the slider (using translateX)
+    const slideWidth = slides[0].offsetWidth; // Width of one slide
+    const newTransformValue = -index * slideWidth; // Move slider by the width of one slide
+
+    // Apply the transform to slide the wrapper
+    sliderWrapper.style.transform = `translateX(${newTransformValue}px)`;
+
+    // Update the dots
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+    });
+
+    currentSlide = index;
+}
+
+// Show next slide
+function nextSlide() {
+    const nextIndex = (currentSlide + 1) % slides.length;
+    showSlide(nextIndex);
+}
+
+// Show previous slide
+function prevSlide() {
+    const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(prevIndex);
+}
+
+// Go to a specific slide
+function goToSlide(index) {
+    showSlide(index);
+}
+
+// Automatic sliding
+let slideInterval = setInterval(nextSlide, 5000);
+
+// Pause sliding on hover
+const slider = document.querySelector('.hero-slider');
+slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+slider.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 5000));
+
+// Initialize the slider
+showSlide(currentSlide);
+
+let selectedOptions = [];
+
+        document.getElementById("openDialog").addEventListener("click", function() {
+            document.getElementById("dialogBox").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        });
+        
+        document.getElementById("closeDialog").addEventListener("click", function() {
+            document.getElementById("dialogBox").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        });
+
+        function resetSelections() {
+            selectedOptions = [];
+            document.getElementById("nestedOptions").innerHTML = "";
+            generateNextDropdown(1, document.getElementById("mainDropdown").value);
+        }
+
+        function generateNextDropdown(level, value) {
+            if (level > 5 || !value) return;
+
+            selectedOptions[level - 1] = value;
+            let newOptionsDiv = document.getElementById("nestedOptions");
+            let newDropdown = document.createElement("select");
+            newDropdown.id = `dropdownLevel${level}`;
+            newDropdown.onchange = function() { generateNextDropdown(level + 1, newDropdown.value); };
+            
+            newDropdown.innerHTML = "<option value=''>Select an option</option>" +
+                `<option value='${value}-A'>Option ${value}-A</option>` +
+                `<option value='${value}-B'>Option ${value}-B</option>` +
+                `<option value='${value}-C'>Option ${value}-C</option>`;
+            
+            newOptionsDiv.appendChild(document.createElement("br"));
+            newOptionsDiv.appendChild(newDropdown);
+        }
+
+        document.getElementById("saveSelection").addEventListener("click", function() {
+            console.log("Selected options:", selectedOptions);
+            alert("Selection saved! Check console for values.");
+        });
+
+</script>
+
+
+{% endblock %}

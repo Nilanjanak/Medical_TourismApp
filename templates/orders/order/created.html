@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Thank You
+{% endblock %}
+
+{% block content %}
+
+<style>
+    /* General font styling */
+body {
+    font-family: 'Poppins', sans-serif; /* A modern, professional font */
+}
+
+/* Container for the thank you message */
+.thank-you-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Light grey background */
+    padding: 20px;
+}
+
+/* Message Box Styling */
+.thank-you-message {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Heading Styling */
+.thank-you-message h1 {
+    font-size: 36px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* Paragraph Styling */
+.thank-you-message p {
+    font-size: 18px;
+    color: #34495e;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* Highlighted order name */
+.thank-you-message strong {
+    color: #e74c3c; /* Red to make it stand out */
+    font-weight: 700;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Continue shopping button */
+.continue-shopping {
+    display: inline-block;
+    background-color: #3498db;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.continue-shopping:hover {
+    background-color: #2980b9;
+}
+
+</style>
+
+<div class="thank-you-container">
+    <div class="thank-you-message">
+        <h1>Thank you!</h1>
+        <p>
+            Your order, <strong>{{ order.name }}</strong>, has been successfully completed.
+        </p>
+        <p>We will send you an email with the details of your order shortly.</p>
+        <a href="{% url 'shop:product_list' %}" class="button continue-shopping">Continue Shopping</a>
+    </div>
+</div>
+{% endblock %}

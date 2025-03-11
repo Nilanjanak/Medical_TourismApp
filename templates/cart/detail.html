@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Your shopping cart
+{% endblock %}
+
+{% block content %}
+
+<style>
+    /* General page styling */
+.cart-wrapper {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+/* Title Styling */
+h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* Cart Table Styling */
+.cart {
+    width: 100%;
+    height: 80%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    font-size: 1rem;
+    border-radius: 10px;
+}
+
+.cart th,
+.cart td {
+    font-size: 1.5rem;
+    padding: 15px;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    color: #555;
+}
+
+.cart td {
+    background-color: #fff;
+}
+
+.cart td.num {
+    text-align: right;
+}
+
+/* Image Styling */
+.cart img {
+    width: 500px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Form controls in the cart */
+.cart form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.cart form input[type="number"] {
+    width: 60px;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Total Section */
+.cart .total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #f8f8f8;
+    padding: 15px;
+}
+
+.cart .total .num {
+    color: #009990;
+    font-size: 1.7rem;
+}
+
+/* Button Styling */
+.button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button.light {
+    background-color: #f0f0f0;
+    color: #333;
+    margin-right: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.button.light:hover {
+    background-color: #ddd;
+}
+
+.button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design: Adjust for smaller screens */
+@media (max-width: 1024px) {
+    .cart-wrapper {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .cart {
+        font-size: 0.9rem;
+    }
+
+    .cart th,
+    .cart td {
+        padding: 12px;
+    }
+
+    .cart img {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cart-wrapper {
+        padding: 10px;
+    }
+
+    .cart td {
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+
+    .cart img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .cart .total {
+        font-size: 1.2rem;
+    }
+
+    .button {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+}
+
+</style>
+    <h1>Your shopping cart</h1>
+
+    <table class="cart">
+        <tbody>
+            {% for item in cart %}
+                {% with product=item.product %}
+                    <tr>
+                        <td>
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="{{ product.name }}">
+                            </a>
+                        </td>
+                        <td>{{ product.name }}</td>
+                        <td>
+                            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                                <!-- Fixed quantity to 1 by using a hidden input -->
+                                <input type="hidden" name="quantity" value="1">
+                                <!-- <input type="submit" value="Update"> -->
+                                {% csrf_token %}
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{% url 'cart:cart_remove' product.id %}" method="post">
+                                <input type="submit" value="Remove">
+                                {% csrf_token %}
+                            </form>
+                        </td>
+                        <td class="num">₹{{ item.price }}</td>
+                        <td class="num">₹{{ item.total_price }}</td>
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+            <tr class="total">
+                <td>Total</td>
+                <td colspan="4"></td>
+                <td class="num">₹{{ cart.get_total_price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="text-right">
+        <a href="{% url 'shop:product_list' %}" class="button light">Continue shopping</a>
+        <a href="{% url 'orders:order_create' %}" class="button">
+            Checkout
+        </a>
+    </p>
+{% endblock %}

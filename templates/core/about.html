@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    /* Base styles */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    margin-left: 20px;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* About section */
+.about-section {
+    text-align: center;
+    background-color: #3e6b8e; /* Medical blue tone */
+    color: white;
+    padding: 50px 20px;
+    margin-top: 50px;
+    border-radius: 20px;
+    /* margin-left: 30px; */
+}
+
+.about-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.about-section p {
+    font-size: 1.2rem;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+/* About content styles */
+.about-content {
+    display: flex;
+    flex-direction: column; /* Stacks child elements vertically */
+    align-items: center;    /* Centers horizontally */
+    justify-content: center; /* Centers vertically if needed */
+    text-align: center;     /* Aligns text content to center */
+    margin: 20px auto;      /* Centers the element within the page */
+    padding: 20px;
+    max-width: 800px;       /* Sets a max width for readability */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.content-section {
+    margin-bottom: 30px;
+}
+
+.content-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #3e6b8e; /* Matching the header color */
+}
+
+.content-section p,
+.content-section ul {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.content-section ul {
+    padding-left: 20px;
+    list-style: disc;
+    margin-top: 10px;
+}
+
+/* Team section */
+.team {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.team-member {
+    text-align: center;
+    max-width: 250px;
+}
+
+.team-member img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.team-member h3 {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #3e6b8e;
+}
+
+.team-member p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Button styles */
+#scrollTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 10px 20px;
+    background-color: #3e6b8e;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+#scrollTopBtn:hover {
+    background-color: #7886C7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-content {
+        padding: 20px;
+    }
+
+    .team {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .team-member {
+        max-width: 90%;
+    }
+}
+
+/* Testimonials */
+.testimonials {
+    text-align: center;
+    padding: 50px 20px;
+    margin-bottom: 50px;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.testimonials h2 {
+    color: #3e6b8e;
+    margin-bottom: 30px;
+}
+
+.testimonial-cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.testimonial-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: left;
+}
+
+.testimonial-card p {
+    font-style: italic;
+    color: #666;
+}
+
+.testimonial-card h4 {
+    margin-top: 10px;
+    color: #3e6b8e;
+}
+
+/* Contact section */
+.contact-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f1f1f1;
+}
+
+.contact-section h2 {
+    color: #3e6b8e;
+    margin-bottom: 20px;
+}
+
+.contact-section form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-section input,
+.contact-section textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.contact-section button {
+    background-color: #3e6b8e;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-section button:hover {
+    background-color: #d81b60;
+}
+</style>
+
+<div class="about-section">
+    <h1>About Our Medical Tourism Services</h1>
+    <p>We provide world-class healthcare treatments and procedures with affordable pricing, tailored for medical tourists worldwide.</p>
+</div>
+
+<div class="about-content">
+    <div class="content-section">
+        <h2>Our Story</h2>
+        <p>Founded in 2015, our medical tourism company aims to connect international patients with high-quality, affordable medical services in renowned hospitals and clinics. We focus on making healthcare accessible, offering a seamless experience for medical travelers.</p>
+    </div>
+    
+    <div class="content-section">
+        <h2>Why Choose Us</h2>
+        <ul>
+            <li>Top-rated hospitals and doctors</li>
+            <li>Affordable treatments compared to home countries</li>
+            <li>All-inclusive packages including travel and accommodation</li>
+            <li>Multilingual support for international patients</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2>Meet Our Expert Team</h2>
+        <div class="team">
+            <div class="team-member">
+                <img src="{% static 'images/team1.jpg' %}" alt="Team Member 1">
+                <h3>Dr. Emily Green</h3>
+                <p>Medical Director</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'images/team2.jpg' %}" alt="Team Member 2">
+                <h3>John Doe</h3>
+                <p>Operations Manager</p>
+            </div>
+            <div class="team-member">
+                <img src="{% static 'images/team3.jpg' %}" alt="Team Member 3">
+                <h3>Alice Smith</h3>
+                <p>Patient Coordinator</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="testimonials">
+    <h2>What Our Patients Say</h2>
+    <div class="testimonial-cards">
+        <div class="testimonial-card">
+            <p>"I received excellent care during my treatment abroad. The process was smooth, and the doctors were top-notch!"</p>
+            <h4>- Sarah L.</h4>
+        </div>
+        <div class="testimonial-card">
+            <p>"Affordable and professional medical services. Highly recommend this medical tourism company!"</p>
+            <h4>- David B.</h4>
+        </div>
+        <div class="testimonial-card">
+            <p>"I was able to get my surgery done at a world-class facility, and the staff was amazing."</p>
+            <h4>- Maria P.</h4>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="contact-section">
+    <h2>Contact Us</h2>
+    <form action="/contact/" method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</div> -->
+
+<button id="scrollTopBtn">Top</button>
+
+<script>
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    window.onscroll = () => {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            scrollTopBtn.style.display = "block";
+        } else {
+            scrollTopBtn.style.display = "none";
+        }
+    };
+
+    scrollTopBtn.onclick = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+</script>
+
+{% endblock content %}

@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+/* General Page Styling */
+.product-detail {
+    max-width: 1250px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.product-detail-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.product-image {
+    flex: 1;
+    max-width: 500px;
+    margin-right: 20px;
+}
+
+.product-image img {
+    width: 120%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.product-info {
+    flex: 1;
+    max-width: 600px;
+}
+
+.product-info h1 {
+    font-size: 2rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-info h2 {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+
+.product-info h2 a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.product-info h2 a:hover {
+    color: #0056b3;
+}
+
+.product-info .description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.product-info .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+.product-info form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.product-info form input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 200px;
+    align-self: flex-start;
+}
+
+.product-info form input[type="submit"]:hover {
+    background-color: #0079fa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.product-info .quantity {
+    display: none; /* Hide the quantity selector */
+}
+
+.inquiry {
+    background-color: #007bff;
+    color: white;
+    /* margin-top: 20px; */
+    padding: 12px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 200px;
+    align-self: flex-start;
+    text-decoration: none;
+}
+
+.inquiry:hover{
+    background-color: #0079fa;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .product-detail-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-image img {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .product-info h1 {
+        font-size: 1.8rem;
+    }
+
+    .product-info .price {
+        font-size: 1.3rem;
+    }
+
+    .product-info form input[type="submit"] {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .product-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .product-info .price {
+        font-size: 1.2rem;
+    }
+
+    .product-info form input[type="submit"] {
+        font-size: 0.8rem;
+        padding: 8px 15px;
+    }
+}
+</style>
+
+<div class="product-detail">
+    <div class="product-detail-container">
+        <div class="product-image">
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="{{ product.name }}">
+        </div>
+
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <h2>
+                <a href="{% url 'shop:category_products' product.category.id %}">
+                    {{ product.category.name }}
+                </a>
+            </h2>
+            <p class="description">
+                {{ product.description|linebreaks }}
+            </p>
+            <!-- <p class="price">₹{{ product.price }}</p> -->
+
+            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                {% csrf_token %}
+                <!-- Fixed quantity to 1 -->
+                <input type="hidden" name="quantity" value="1"> 
+                <input type="hidden" value="Add to cart">
+            </form> <br>
+            <a class="inquiry" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfRYjllDg7pyOpuaa75c9gNiJhgPHE5UqsgRoCTwlHwTnJSFg/viewform?usp=sharing">Inquiry</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

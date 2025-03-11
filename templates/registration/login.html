@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<style>
+  /* General styles for the login form */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    /* padding-right: 60px; */
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif; /* Add a custom font for the container */
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+/* Styling for the form */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Styling for the input fields */
+.login-form input {
+    width: 90%;
+    padding: 15px; /* Increased padding for larger fields */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.2rem; /* Increased font size */
+    font-family: 'Roboto', sans-serif; /* Custom font for the fields */
+}
+
+.login-form input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Styling for the submit button */
+.btn-submit {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem; /* Increased button font size */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Roboto', sans-serif; /* Match font to other elements */
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* Base styling for the login button */
+.login-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #007bff; /* Blue background */
+    border: 2px solid #007bff; /* Border matching the background */
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover state - change background color */
+.login-btn:hover {
+    background-color: #0056b3; /* Darker blue */
+    border-color: #0056b3; /* Darker border */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Focus state - outline for accessibility */
+.login-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.6); /* Light blue outline */
+}
+
+/* Active state - when the button is clicked */
+.login-btn:active {
+    background-color: #004085; /* Even darker blue */
+    border-color: #004085;
+    transform: scale(0.98); /* Button shrinks slightly */
+}
+
+/* Disabled state - when the button is disabled */
+.login-btn:disabled {
+    background-color: #cccccc; /* Light gray */
+    border-color: #cccccc; /* Light gray border */
+    color: #666666; /* Dark gray text */
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Icon (optional) inside the button */
+.login-btn .btn-icon {
+    margin-right: 8px; /* Space between icon and text */
+    vertical-align: middle;
+    font-size: 18px; /* Adjust icon size */
+}
+
+/* Add some responsiveness */
+@media (max-width: 500px) {
+    .login-container {
+        margin: 20px;
+        padding: 15px;
+    }
+}
+
+</style>
+
+<div class="login-container">
+    <h2>Log In</h2>
+    {% if form.errors %}
+    <p>
+        Your username and password didn't match.
+        Please try again.
+    </p>
+    {% else %}
+    <p>Please, use the following form to log-in:</p>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post" class="login-form">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
+        <p><input type="submit" class="login-btn" value="Log-in"></p>
+        <p>
+            <a href="{% url "password_reset" %}">
+            Forgotten your password?
+            </a>
+        </p>
+        <a href="{% url 'accounts:register' %}">Sign Up</a>
+    </form>
+
+
+
+
+
+
+</div>
+
+
+{% endblock %}
+
+
+
+

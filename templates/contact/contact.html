@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    /* Basic Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centering the form container */
+.contact-form-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center form elements horizontally */
+}
+
+/* Heading Style */
+h2 {
+    text-align: center;
+    color: #3a3a3a;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+/* Styling the form fields */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Make the form take full width of the container */
+    align-items: center; /* Center the form elements */
+}
+
+/* Styling individual form elements */
+form input, form textarea {
+    width: 90%; /* Set width to 90% to make them the same size */
+    max-width: 500px; /* Set a max-width to prevent stretching on large screens */
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+form textarea {
+    resize: vertical;
+    height: 150px;
+}
+
+/* Submit Button Styling */
+button {
+    width: 90%; /* Same width as input fields */
+    max-width: 500px; /* Same max-width as input fields */
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Add space between form elements */
+form .form-group {
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-form-container {
+        width: 95%;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+}
+
+</style>
+<div class="contact-form-container">
+    <h2>Contact Us</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send</button>
+    </form>
+</div>
+{% endblock %}

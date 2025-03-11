@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Styling for the main container */
+#main.product-list {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #D1F8EF;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Page title styling */
+#main h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Grid container for products (1 product per row) */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 column per row */
+    gap: 20px;
+}
+
+/* Individual product items */
+.product-item {
+    display: flex; /* Flexbox to arrange image and text horizontally */
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    align-items: center; /* Vertically align content */
+}
+
+/* Hover effects for product items */
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Product image styling */
+.product-item img {
+    width: 400px; /* Fixed image size */
+    height: 400px;
+    object-fit: cover;
+    margin-right: 20px; /* Space between image and text */
+    border-radius: 8px;
+}
+
+/* Product information container (text area) */
+.product-info {
+    flex-grow: 1; /* Text content will take the remaining space */
+}
+
+/* Product name styling */
+.product-name {
+    font-size: 2.5rem;
+    color: #497D74;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Product description (if any) */
+.product-description {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Product price styling */
+.product-price {
+    font-size: 24px;
+    color: #497D74;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Button styling for cart */
+.price-button {
+    display: inline-block;
+    min-width: 80px;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
+    background-color: #497D74;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.price-button:hover {
+    background-color: #0056b3;
+}
+
+.read-more {
+    text-decoration: none;
+    color: #497D74;
+}
+
+/* No products message */
+.product-grid p {
+    font-size: 16px;
+    color: #888;
+    text-align: center;
+}
+/* Custom button styling */
+.custom-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+    
+    /* Positioning */
+    position: fixed;
+    bottom: 20px;  /* Adjust vertical spacing */
+    right: 20px;   /* Adjust horizontal spacing */
+    z-index: 1000; /* Ensures it stays above other elements */
+}
+
+.custom-button:hover {
+    background-color: #45a049;
+}
+
+</style>
+
+<div id="main" class="product-list">
+    <h1>Choose your {{ category.name }}</h1>
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product-item">
+                <!-- Product image -->
+                <a href="{{ product.get_absolute_url }}">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="{{ product.name }}">
+                </a>
+                <!-- Product details -->
+                <div class="product-info">
+                    <a href="{{ product.get_absolute_url }}" class="product-name">{{ product.name }}</a><br><br>
+                    <div class="product-description">
+                        <!-- You can add a short description here if you have it -->
+                        {{ product.description|truncatewords:35 }}
+                        <a href="{{ product.get_absolute_url }}" class="read-more">Read More</a><br>
+                    </div>
+                    <!-- <h3 class="product-price">On Demand</h3> -->
+                    <!-- <div class="product-price">₹{{ product.price }}</div> --> <br>
+                    <a class="price-button" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfRYjllDg7pyOpuaa75c9gNiJhgPHE5UqsgRoCTwlHwTnJSFg/viewform?usp=sharing">Book an Appointment</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No products found in this category.</p>
+        {% endfor %}
+    </div>
+</div>
+<!-- Button redirects to the chatbot page using Django URL routing -->
+<!-- <a href="{% url 'shop:chatbot' %}" class="custom-button">Chat with Deepseek</a> -->
+{% endblock %}

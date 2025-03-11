@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Refund Policy - Flower Bouquets
+{% endblock %}
+
+{% block content %}
+<style>
+    /* General Page Styling */
+    .policy-detail {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+        backdrop-filter: blur(10px); /* Apply blur effect */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border-radius: 20px;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    .policy-detail-container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .policy-info {
+        flex: 1;
+    }
+    
+    .policy-info h1 {
+        font-size: 2rem;
+        color: #333;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+    .policy-info h2 {
+        font-size: 1.5rem;
+        color: #666;
+        margin-bottom: 15px;
+        font-weight: normal;
+    }
+    
+    .policy-info p {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .policy-info .custom-button {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 25px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+    .policy-info .custom-button:hover {
+        background-color: #0056b3;
+    }
+    
+    .policy-info a {
+        color: blue;
+        text-decoration: none;
+    }
+
+    .policy-info a:hover {
+        color: blue;
+        text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .policy-detail-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .policy-info h1 {
+            font-size: 1.8rem;
+        }
+        
+        .policy-info h2 {
+            font-size: 1.3rem;
+        }
+    }
+</style>
+
+<div class="policy-detail">
+    <div class="policy-detail-container">
+        <div class="policy-info">
+            <h1>Refund Policy</h1>
+            <p>At Flower Bouquets, we want you to be completely satisfied with your purchase. If for any reason you're not happy, please review the following refund policy.</p>
+
+            <h2>Eligibility for Refunds</h2>
+            <p>To be eligible for a refund, you must request it within 14 days of your purchase and provide proof of purchase.</p>
+
+            <h2>Refund Process</h2>
+            <p>Once your return is received and inspected, we will notify you of the approval or rejection of your refund.</p>
+
+            <h2>Exchanges</h2>
+            <p>If you received a damaged or defective item, we are happy to exchange it for a new one.</p>
+
+            <h2>Non-Refundable Items</h2>
+            <p>Certain perishable goods such as custom flower arrangements cannot be returned.</p>
+
+            <a href="{% url 'shop:contact' %}" class="custom-button">Contact Us</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
